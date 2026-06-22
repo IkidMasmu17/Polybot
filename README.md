@@ -80,10 +80,10 @@ cp .env.example .env
 Edit `.env`:
 
 ```env
-TELEGRAM_BOT_TOKEN=123456:ABCdefGHIjklMNOpqrsTUVwxyz
-TELEGRAM_OWNER_ID=123456789
-POLYMARKET_PRIVATE_KEY=0x_your_polygon_wallet_private_key
-FERNET_KEY=generated_fernet_key
+TELEGRAM_BOT_TOKEN=""
+TELEGRAM_OWNER_ID=""
+POLYMARKET_PRIVATE_KEY=""
+FERNET_KEY=generated_fernet_key""
 ```
 
 Generate Fernet key:
