@@ -1,0 +1,102 @@
+# ============================================================
+# PolyBot v1.0 — Configuration (non-sensitive settings)
+# Sensitive values go in .env
+# ============================================================
+
+# Market Scanner
+scanner:
+  interval_seconds: 30           # How often to scan for new markets
+  min_liquidity_usd: 500         # Minimum liquidity to consider
+  max_spread_pct: 5.0            # Maximum bid/ask spread
+  min_volume_24h_usd: 200        # Minimum 24h volume
+  upcoming_window_hours: 2       # Match must start within this window
+
+  # Sport categories to scan
+  sport_categories:
+    - soccer                     # World Cup 2026 (MVP)
+
+# Wallet Tracker
+wallet_tracker:
+  interval_minutes: 15           # How often to refresh wallet stats
+  tier: "STANDAR"                # KONSERVATIF | STANDAR | AGGRESIF
+
+  # Tier thresholds
+  tiers:
+    KONSERVATIF:
+      elite_threshold: 90
+      smart_threshold: 80
+      min_trades: 30
+    STANDAR:
+      elite_threshold: 85
+      smart_threshold: 70
+      min_trades: 20
+    AGGRESIF:
+      elite_threshold: 75
+      smart_threshold: 65
+      min_trades: 15
+
+  # Win rate period weights
+  wr_period_weights:
+    days_30: 0.6
+    days_90: 0.4
+
+  # Auto-unfollow triggers
+  auto_unfollow:
+    enabled: true
+    trailing_wr_drop: 15         # Unfollow if WR drops 15% from peak
+    consecutive_losses: 5
+    check_interval_days: 14
+
+# Scalping / Trade Parameters
+scalping:
+  profit_target_pct: 8.0         # Take profit at 8% (3-50 configurable)
+  stop_loss_pct: 5.0             # Stop loss at 5% (2-20 configurable)
+  max_position_usd: 1.00         # Max $1.00 per trade
+  max_open_positions: 3          # Max 3 concurrent positions
+  time_limit_minutes: 90         # Force close after 90 minutes
+  slippage_tolerance_pct: 1.0    # Max 1% slippage
+  order_type: "limit"            # limit | market | limit_fallback_market
+
+  # Position sizing
+  sizing:
+    mode: "fixed_percentage"     # fixed_percentage | fixed_amount | kelly
+    bankroll_pct: 20.0           # 20% of bankroll per trade
+
+# Risk Management
+risk:
+  daily_loss_limit_pct: 30.0     # Daily loss limit: 30% of bankroll
+  max_consecutive_losses: 4      # Halt after 4 consecutive losses
+  drawdown_reduction:
+    enabled: true
+    steps:
+      - consecutive: 2
+        multiplier: 0.5          # Reduce size to 50% after 2 losses
+
+# Copy Trade
+copy_trade:
+  mode: "semi_auto"              # semi_auto | shadow | full_auto (NOT recommended for v1.0)
+  min_confidence_score: 70       # Minimum wallet score to copy
+  max_copy_wallets: 5            # Max wallets to copy simultaneously
+
+# Telegram Bot
+telegram:
+  polling_timeout: 30            # Long polling timeout seconds
+  alert_level: "STANDAR"         # MINIMAL | STANDAR | VERBOSE
+  allowed_user_ids: []           # Will be populated from .env TELEGRAM_OWNER_ID
+
+# Database
+database:
+  path: "data/polybot.db"
+  backup_interval_hours: 24
+
+# Logging
+logging:
+  level: "INFO"                  # DEBUG | INFO | WARNING | ERROR
+  file: "logs/polybot.log"
+  rotation: "10 MB"
+  retention: "30 days"
+
+# Deployment
+deployment:
+  mode: "development"            # development | production
+  health_check_port: 8080        # For uptime monitoring

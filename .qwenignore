@@ -1,0 +1,11 @@
+# PolyBot — ignore patterns
+.env
+*.pyc
+__pycache__/
+*.db
+logs/
+data/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
